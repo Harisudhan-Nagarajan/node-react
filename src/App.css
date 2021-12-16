@@ -1,10 +1,30 @@
+body{
+  background-color: black;
+  color: red;
+}
 .App {
   font-family: sans-serif;
   text-align: center;
   display: flex;
   flex-flow: row wrap;
   justify-content: space-evenly;
+  width: 100%;
+  padding-top: 1.5rem;
 }
+.inputfield{
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1rem;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgb(24, 23, 23);
+}
+.inputfield > input{
+  height: 1.5rem;
+  width: 12rem;
+  border: none;
+}
+
 
 #image{
    width: 100%;
@@ -14,14 +34,25 @@
 }
 
 #card{
-  background-color: rgb(195, 163, 255);
+  background-color: rgb(24, 23, 23);
   width:15rem;
   border-radius: 1rem;
   margin: 1.5rem;
   padding: 1rem;
 }
 #card:hover{
+  /* color:black; */
   transform:scale(1.1);
   transition: all 0.3s ease-in-out;
   box-shadow: 0px 0px 5px 5px;
+}
+
+#showdes{
+  margin-bottom: 1rem;
+}
+
+#delebtn{
+ margin-left: 2rem;
+ margin-right: 2rem;
+ height: 1.7rem;
 }

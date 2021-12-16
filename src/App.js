@@ -1,6 +1,8 @@
-import "./App.css";
 
+import "./App.css";
+import{useState} from "react"
 export default function App() {
+  
   const names = [
     {
       name: "JAI Bhim",
@@ -88,25 +90,75 @@ export default function App() {
     },
     
   ];
+  const[name,setName]=useState("");
+  const[url,setPic]=useState("");
+  const[rating,setRating]=useState("");
+  const[summary,setSummary]=useState("");
+  
+  const [movielists,Setmovie]=useState(names);
+
+  let newmovie =[{name:name,url:url,rating:rating,summary:summary}];
   return (
-    <div className="App">
-      {names.map(({name,url,rating,summary}) => (
-        <Display name={name} url={url} rating={rating} summary={summary}  />
-      ))}
+    <div>
+    <div className="inputfield">
+      <input onChange={(event)=>setName(event.target.value)} placeholder="Enter Movie Name" />
+      <input onChange={(event)=>setPic(event.target.value)} placeholder="Enter Image URL" />
+      <input onChange={(event)=>setRating(event.target.value)} placeholder="Enter Movie Rating" />
+      <input onChange={(event)=>setSummary(event.target.value)} placeholder="Enter Movie Summary" />
+      <button onClick={()=>{(name !==""&&url!==""&&rating!==""&&summary!=="")? Setmovie([...movielists,...newmovie]):alert("Input field Can't be empty")}}>Add</button>
+      </div>
+      <div className="App">
+          {movielists.map(({name,url,rating,summary}) => (
+           <Display name={name} url={url} rating={rating} summary={summary}  />
+           ))}
+     </div>
+    
     </div>
   );
-}
+} 
 
 function Display({ name, url,rating,summary }) {
-  var styles ={};
-  ((rating>=8.5)?styles={color:"green"}:styles={color:"red"});
+  var styles ={ 
+    color : rating >= 8.5 ? "green" : "yellow",
+  };
  
+  const [show,setShow]= useState(true);
+  let summarystyle={display:show?"none":"block"};
+
+  const [dele,setDele] = useState(true);
+  let cardstyle={display:dele?"block":"none"}
+  
+  const [like, setLike] = useState(0);
+  const [Dislike, setDislike] = useState(0);
+
+  
   return (
-    <div id="card">
+    <div id="card" style={cardstyle}>
       <img src={url} alt={name} id="image" />
       <h2>{name}</h2>
-      <p style={styles}>IMDB : {rating}⭐</p>
-      <p>{summary}</p>
+      <p >IMDB : <span style={styles}>{rating}</span> ⭐</p>
+      <button id="showdes"onClick={()=>setShow(!show)}>{show?"Show More":"Show Less"}</button>
+      <p style={summarystyle}>{summary}</p><br/>
+      <button id="likebtn" onClick={()=>setLike(like+1)}>👍{like}</button>
+      <button id="delebtn" onClick={()=>setDele(!dele)}>Delete</button>
+      <button id="dislikebtn" onClick={()=>setDislike(Dislike+1)}>👎{Dislike}</button>
+      
     </div>
   );
-}
+  }
+
+
+
+
+// function Likedis(){
+//   const [like, setLike] = useState(0);
+//   const [Dislike, setDislike] = useState(0);
+
+//   return(
+//     <div>
+//        <button id="likebtn" onClick={()=>setLike(like+1)}>👍{like}</button>
+//        <button id="dislikebtn" onClick={()=>setDislike(Dislike+1)}>👎{Dislike}</button>
+//     </div>
+   
+//   )
+// }
