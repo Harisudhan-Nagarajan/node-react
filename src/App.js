@@ -7,7 +7,9 @@ import CardContent from '@mui/material/CardContent';
 import CardMedia from '@mui/material/CardMedia';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
+import Badge from '@mui/material/Badge';
 import TextField from '@mui/material/TextField';
+import IconButton from '@mui/material/IconButton';
 
 export default function App() {
   
@@ -177,10 +179,29 @@ function Display({ name, url,rating,summary,deletebtn }) {
         </Typography>
       </CardContent>
       <CardActions>
-      <Button variant="outlined"  id="likebtn" onClick={()=>setLike(like+1)}>👍{like}</Button>
+      
+      <IconButton aria-label="delete" size="large" onClick={()=>setLike(like+1)} color="success">
+      <Badge badgeContent={like} color="success">
+        👍
+      </Badge> 
+       </IconButton>
+     
+      {/* <IconButton aria-label="delete" size="large" onClick={()=>setLike(like+1)} color="success">
+        👍{like}
+       </IconButton> */}
+
       {deletebtn}
-       {/* <Button variant="outlined"  id="delebtn" onClick={()=>setDele(!dele)}>Delete</Button> */}
-       <Button variant="outlined"   id="dislikebtn" onClick={()=>setDislike(Dislike+1)}>👎{Dislike}</Button>
+      
+      
+      <IconButton aria-label="delete" size="large" onClick={()=>setDislike(Dislike+1)} color="error">
+       <Badge badgeContent={Dislike} color="error">
+         👎
+         </Badge>
+       </IconButton>
+      
+       {/* <IconButton aria-label="delete" size="large" onClick={()=>setDislike(Dislike+1)} color="error">
+         👎{Dislike}
+       </IconButton> */}
       </CardActions>
     </Card>
   );
