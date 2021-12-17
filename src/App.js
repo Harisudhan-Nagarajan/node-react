@@ -130,7 +130,7 @@ export default function App() {
            onClick={()=>{
             const deleteindex=index;
             const remaining = movielists.filter(
-              (mv,indx)=>deleteindex!==indx);
+              (m,indx)=>deleteindex!==indx);
               Setmovie(remaining)
            }} 
            >Delete</Button>} 
