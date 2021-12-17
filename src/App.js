@@ -1,6 +1,14 @@
 
 import "./App.css";
 import{useState} from "react"
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import TextField from '@mui/material/TextField';
+
 export default function App() {
   
   const names = [
@@ -97,19 +105,39 @@ export default function App() {
   
   const [movielists,Setmovie]=useState(names);
 
-  let newmovie =[{name:name,url:url,rating:rating,summary:summary}];
+  let newmovie =[{name,url,rating,summary}];
   return (
     <div>
+     
     <div className="inputfield">
-      <input onChange={(event)=>setName(event.target.value)} placeholder="Enter Movie Name" />
-      <input onChange={(event)=>setPic(event.target.value)} placeholder="Enter Image URL" />
-      <input onChange={(event)=>setRating(event.target.value)} placeholder="Enter Movie Rating" />
-      <input onChange={(event)=>setSummary(event.target.value)} placeholder="Enter Movie Summary" />
-      <button onClick={()=>{(name !==""&&url!==""&&rating!==""&&summary!=="")? Setmovie([...movielists,...newmovie]):alert("Input field Can't be empty")}}>Add</button>
+      
+       <TextField id="nameid" label="Enter Movie Name" variant="outlined"  onChange={(event)=>setName(event.target.value)} />
+       <TextField id="urlid" label="Enter Image URL" variant="outlined" onChange={(event)=>setPic(event.target.value)}  />
+       <TextField id="ratingid" label="Enter Movie Rating" variant="outlined" onChange={(event)=>setRating(event.target.value)} />
+       <TextField
+          id="outlined-multiline-flexible"
+          label="Enter Movie Summary" 
+          multiline
+          maxRows={4}
+          onChange={(event)=>setSummary(event.target.value)} 
+        />
+        <Button variant="outlined" id="addbtn"  onClick={()=>{(name !==""&&url!==""&&rating!==""&&summary!=="")? Setmovie([...movielists,...newmovie]):alert("Input field Can't be empty")}}>Add</Button>
       </div>
       <div className="App">
-          {movielists.map(({name,url,rating,summary}) => (
-           <Display name={name} url={url} rating={rating} summary={summary}  />
+          {movielists.map(({name,url,rating,summary},index) => (
+           <Display deletebtn={
+           <Button variant="outlined"  id="delebtn" 
+           onClick={()=>{
+            const deleteindex=index;
+            const remaining = movielists.filter(
+              (mv,indx)=>deleteindex!==indx);
+              Setmovie(remaining)
+           }} 
+           >Delete</Button>} 
+           name={name} 
+           url={url} 
+           rating={rating} 
+           summary={summary}  />
            ))}
      </div>
     
@@ -117,48 +145,43 @@ export default function App() {
   );
 } 
 
-function Display({ name, url,rating,summary }) {
+function Display({ name, url,rating,summary,deletebtn }) {
   var styles ={ 
     color : rating >= 8.5 ? "green" : "yellow",
   };
  
   const [show,setShow]= useState(true);
-  let summarystyle={display:show?"none":"block"};
-
-  const [dele,setDele] = useState(true);
-  let cardstyle={display:dele?"block":"none"}
+  let summarystyle={display:show?"none":"block",color:"azure"};
   
   const [like, setLike] = useState(0);
   const [Dislike, setDislike] = useState(0);
 
   
   return (
-    <div id="card" style={cardstyle}>
-      <img src={url} alt={name} id="image" />
-      <h2>{name}</h2>
-      <p >IMDB : <span style={styles}>{rating}</span> ⭐</p>
-      <button id="showdes"onClick={()=>setShow(!show)}>{show?"Show More":"Show Less"}</button>
-      <p style={summarystyle}>{summary}</p><br/>
-      <button id="likebtn" onClick={()=>setLike(like+1)}>👍{like}</button>
-      <button id="delebtn" onClick={()=>setDele(!dele)}>Delete</button>
-      <button id="dislikebtn" onClick={()=>setDislike(Dislike+1)}>👎{Dislike}</button>
-      
-    </div>
+    <Card sx={{ maxWidth: 300 , height:"auto"}} 
+     id="card">
+      <CardMedia
+        component="img"
+        height="340"
+        image={url}
+        alt={name}
+      />
+      <CardContent>
+        <Typography gutterBottom  component="div">
+        <h2>{name}</h2>
+        <p >IMDB : <span style={styles}>{rating}</span> ⭐</p> 
+        </Typography>
+        <Typography variant="body2" color="text.secondary" >
+        <Button variant="outlined"  id="showdes"onClick={()=>setShow(!show)}> {show?"Show More":"Show Less"} </Button>
+        <p style={summarystyle}>{summary}</p><br/>
+        </Typography>
+      </CardContent>
+      <CardActions>
+      <Button variant="outlined"  id="likebtn" onClick={()=>setLike(like+1)}>👍{like}</Button>
+      {deletebtn}
+       {/* <Button variant="outlined"  id="delebtn" onClick={()=>setDele(!dele)}>Delete</Button> */}
+       <Button variant="outlined"   id="dislikebtn" onClick={()=>setDislike(Dislike+1)}>👎{Dislike}</Button>
+      </CardActions>
+    </Card>
   );
   }
-
-
-
-
-// function Likedis(){
-//   const [like, setLike] = useState(0);
-//   const [Dislike, setDislike] = useState(0);
-
-//   return(
-//     <div>
-//        <button id="likebtn" onClick={()=>setLike(like+1)}>👍{like}</button>
-//        <button id="dislikebtn" onClick={()=>setDislike(Dislike+1)}>👎{Dislike}</button>
-//     </div>
-   
-//   )
-// }
