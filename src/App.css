@@ -1,8 +1,7 @@
-body{
+
+.App {
   background-color: black;
   color: red;
-}
-.App {
   font-family: sans-serif;
   text-align: center;
   display: flex;
@@ -21,6 +20,7 @@ body{
   justify-content: center;
   padding: 1rem;
   background-color: azure; 
+  flex-direction: column;
 }
 
 #addbtn{
@@ -54,4 +54,14 @@ body{
 
 #delebtn{
  height: 2.3rem;
+}
+
+
+
+
+
+
+#navbar{
+  display: flex;
+  flex-direction: column;
 }

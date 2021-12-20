@@ -1,5 +1,7 @@
 
 import "./App.css";
+import Color from './Color';
+
 import{useState} from "react"
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
@@ -10,7 +12,7 @@ import Typography from '@mui/material/Typography';
 import Badge from '@mui/material/Badge';
 import TextField from '@mui/material/TextField';
 import IconButton from '@mui/material/IconButton';
-
+import { Switch, Route, Link } from "react-router-dom";
 export default function App() {
   
   const names = [
@@ -110,21 +112,35 @@ export default function App() {
   let newmovie =[{name,url,rating,summary}];
   return (
     <div>
-     
-    <div className="inputfield">
-      
-       <TextField id="nameid" label="Enter Movie Name" variant="outlined"  onChange={(event)=>setName(event.target.value)} />
-       <TextField id="urlid" label="Enter Image URL" variant="outlined" onChange={(event)=>setPic(event.target.value)}  />
-       <TextField id="ratingid" label="Enter Movie Rating" variant="outlined" onChange={(event)=>setRating(event.target.value)} />
-       <TextField
+      <nav id="navbar">
+      <Link to="/Home">Home</Link>
+      <Link to="/Movie">Add Movie</Link>
+      <Link to="/Movielist">Movie List</Link>
+      </nav>
+    
+       <Switch>
+         <Route path="/Home">
+          <div>
+            <h1>Welcome to Add Movie APP🤩</h1>
+
+          </div>
+         </Route>
+       <Route path="/Movie">
+      <div className="inputfield">
+         <TextField id="nameid" label="Enter Movie Name" variant="outlined"  onChange={(event)=>setName(event.target.value)} />
+         <TextField id="urlid" label="Enter Image URL" variant="outlined" onChange={(event)=>setPic(event.target.value)}  />
+         <TextField id="ratingid" label="Enter Movie Rating" variant="outlined" onChange={(event)=>setRating(event.target.value)} />
+         <TextField
           id="outlined-multiline-flexible"
           label="Enter Movie Summary" 
           multiline
           maxRows={4}
           onChange={(event)=>setSummary(event.target.value)} 
-        />
+          />
         <Button variant="outlined" id="addbtn"  onClick={()=>{(name !==""&&url!==""&&rating!==""&&summary!=="")? Setmovie([...movielists,...newmovie]):alert("Input field Can't be empty")}}>Add</Button>
       </div>
+      </Route>
+      <Route path="/Movielist">
       <div className="App">
           {movielists.map(({name,url,rating,summary},index) => (
            <Display deletebtn={
@@ -141,8 +157,11 @@ export default function App() {
            rating={rating} 
            summary={summary}  />
            ))}
-     </div>
-    
+      </div>
+      </Route>
+     
+      
+    </Switch>
     </div>
   );
 } 
