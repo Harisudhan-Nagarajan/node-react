@@ -1,6 +1,6 @@
 
 .App {
-  background-color: black;
+  /* background-color: black; */
   color: red;
   font-family: sans-serif;
   text-align: center;
@@ -57,11 +57,31 @@
 }
 
 
-
-
-
-
 #navbar{
   display: flex;
   flex-direction: column;
+}
+
+.game-box{
+  width:7rem ;
+  height: 7rem;
+  border: 1px solid black;
+  font-size: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+.game-box:hover{
+  background-color: rgba(0, 0, 0, 0.158);
+}
+.board{
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+  width: min-content;
+  
+}
+
+.notfound{
+  align-items: center;
 }
