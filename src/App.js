@@ -1,18 +1,13 @@
 import "./App.css";
 import { Color } from "./Color";
 import { useState } from "react";
-import {
-  Switch,
-  Route,
-  Link,
-  Redirect,
-  useHistory,
-} from "react-router-dom";
+import { Switch, Route, Link, Redirect, useHistory } from "react-router-dom";
 import { Tictactoe } from "./Tictactoe";
 import { Addmovie } from "./Addmovie";
 import { Movielist } from "./Movielist";
 import { Home } from "./Home";
 import { Moviedetials } from "./Moviedetials";
+import { Notfound } from "./Notfound";
 
 export default function App() {
   const names = [
@@ -113,14 +108,8 @@ export default function App() {
       trailer: "EXeTwQWrcwY",
     },
   ];
-  const [name, setName] = useState("");
-  const [url, setPic] = useState("");
-  const [rating, setRating] = useState("");
-  const [summary, setSummary] = useState("");
 
   const [movielists, Setmovie] = useState(names);
-
-  let newmovie = { name, url, rating, summary };
 
   return (
     <div>
@@ -138,15 +127,7 @@ export default function App() {
         </Route>
 
         <Route exact path="/Movie">
-          <Addmovie
-            movielists={movielists}
-            newmovie={newmovie}
-            Setmovie={Setmovie}
-            setName={setName}
-            setPic={setPic}
-            setRating={setRating}
-            setSummary={setSummary}
-          />
+          <Addmovie movielists={movielists} Setmovie={Setmovie} />
         </Route>
 
         <Route exact path="/Movielist">
@@ -164,6 +145,7 @@ export default function App() {
         <Route exact path="/tictactoe">
           <Tictactoe />
         </Route>
+
         <Route exact path="/Movielist/:id">
           <Moviedetials movielists={movielists} />
         </Route>
@@ -172,18 +154,8 @@ export default function App() {
           {/* regex** */}
           <Notfound />
         </Route>
-      </Switch>
-    </div>
-  );
-}
 
-function Notfound() {
-  return (
-    <div className="notfound">
-      <img
-        src="https://www.myphukettravel.com/assets/front-end/images/404.gif"
-        alt="404 Not Found"
-      />
+      </Switch>
     </div>
   );
 }

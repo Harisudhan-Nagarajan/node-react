@@ -1,17 +1,15 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useHistory } from "react-router";
+import { useState } from "react";
 
-export function Addmovie({
-  movielists,
-  newmovie,
-  Setmovie,
-  setName,
-  setPic,
-  setRating,
-  setSummary,
-}) {
+export function Addmovie({ movielists, Setmovie }) {
   const history = useHistory();
+  const [name, setName] = useState("");
+  const [url, setPic] = useState("");
+  const [rating, setRating] = useState("");
+  const [summary, setSummary] = useState("");
+  let newmovie = { name, url, rating, summary };
 
   return (
     <div className="inputfield">

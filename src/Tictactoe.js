@@ -1,23 +1,15 @@
 import { useState } from "react";
-
+import AutorenewIcon from "@mui/icons-material/Autorenew";
+import Button from "@mui/material/Button";
 export function Tictactoe() {
-  const [board, setboard] = useState([
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-  ]);
+  const initial = [null, null, null, null, null, null, null, null, null];
+  const [board, setboard] = useState(initial);
 
   const [isXturn, setXturn] = useState(true);
-
+  let boardCopy;
   const handleclick = (index) => {
     if (!winner && !board[index]) {
-      const boardCopy = [...board];
+       boardCopy = [...board];
       boardCopy[index] = isXturn ? "X" : "O";
       setboard(boardCopy);
       setXturn(!isXturn);
@@ -52,18 +44,47 @@ export function Tictactoe() {
       return `Match Drawn`;
     }
   };
+  let xwins=0;
+  let owins=0;
+  
   const winner = decidewinner(board);
+  // if(winner==="X"){
+  //   xwins++;
+  //   console.log(xwins,owins);
+  // }else if(winner==="O"){
+  //    owins++;
+  //    console.log(xwins,owins);
+  // }
   return (
     <div>
+      <div>
+        <span>Choose X or O</span>
+        <Button variant="outlined" onClick={() => setXturn(true)}>
+          X
+        </Button>
+        <Button variant="outlined" onClick={() => setXturn(false)}>
+          O
+        </Button>
+      </div>
+
       <div className="board">
         {board.map((val, index) => (
           <Gamebox val={val} onplayerclick={() => handleclick(index)} />
         ))}
       </div>
+      
       <h2> {winner}</h2>
+      <Button
+        variant="outlined"
+        onClick={() => setboard(initial)}
+        startIcon={<AutorenewIcon />}
+      >
+        restart
+      </Button>
     </div>
   );
 }
+
 function Gamebox({ val, onplayerclick }) {
   const styles = { color: val === "X" ? "green" : "red" };
   return (
